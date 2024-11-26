@@ -26,7 +26,7 @@ export const Chatbox = () => {
   // List of expressions for the character
   const expressions = ["happy", "super happy", "neutral", "smug", "excited"];
   const [showInitialSpeechBubble, setShowInitialSpeechBubble] = useState(true);
-  const [speechBubbleText, setSpeechBubbleText] = useState("Hi! I'm Chiaki, your AI-powered food advisor. Tell me, what kind of cuisine are you craving today?");
+
 
   // Cooldown duration in milliseconds (e.g., 1.5 seconds)
   const MESSAGE_COOLDOWN = 1500;
@@ -245,7 +245,7 @@ export const Chatbox = () => {
             zIndex: 900,
           }}
         >
-          {speechBubbleText}
+          {"Hi! I'm Chiaki, your AI-powered food advisor. Tell me, what kind of cuisine are you craving today?"}
         </div>
       )}
 
