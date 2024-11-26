@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import image1 from "../assets/cafe1.webp";
 import image2 from "../assets/cafe2.jpg";
 import image3 from "../assets/chicken_rice.jpg";
@@ -89,7 +89,7 @@ export const StoresPage = () => {
     },
   ];
 
-  const [cart, setCart] = useState<{ name: string; price: number }[]>([]);
+  const [cart, setCart] = useState<{ name: string; price: number; storeName: string }[]>([]);
   const [selectedStore, setSelectedStore] = useState<any | null>(null);
   const [showPreOrderPopup, setShowPreOrderPopup] = useState(false);
   const [preOrderDetails, setPreOrderDetails] = useState({
@@ -97,21 +97,66 @@ export const StoresPage = () => {
     time: "",
     location: "",
   });
+  const [, setActiveOrders] = useState<any[]>([]);
 
+  useEffect(() => {
+    // Load cart from localStorage
+    const savedCart = localStorage.getItem('foodAppCart');
+    if (savedCart) {
+      setCart(JSON.parse(savedCart));
+    }
+
+    // Load active orders from localStorage
+    const savedOrders = localStorage.getItem('foodAppOrders');
+    if (savedOrders) {
+      setActiveOrders(JSON.parse(savedOrders));
+    }
+  }, []);
+
+  // Modified addToCart to include store name
   const addToCart = (item: { name: string; price: number }) => {
-    setCart((prev) => [...prev, item]);
+    const updatedCart = [...cart, { 
+      ...item, 
+      storeName: selectedStore ? selectedStore.name : 'Unknown Store' 
+    }];
+    setCart(updatedCart);
+    localStorage.setItem('foodAppCart', JSON.stringify(updatedCart));
   };
+
 
   const openStoreMenu = (store: any) => {
     setSelectedStore(store);
   };
 
   const deleteFromCart = (index: number) => {
-    setCart((prev) => prev.filter((_, i) => i !== index));
+    const updatedCart = cart.filter((_, i) => i !== index);
+    setCart(updatedCart);
+    localStorage.setItem('foodAppCart', JSON.stringify(updatedCart));
   };
 
+  // Modify orderNow to manage localStorage
   const orderNow = () => {
+    const order = {
+      items: cart.map(item => ({
+        ...item,
+        storeName: item.storeName // Ensure store name is preserved
+      })),
+      type: "Immediate",
+      time: new Date().toLocaleTimeString(),
+      location: "Current Location",
+      totalPrice: totalPrice,
+      timestamp: Date.now() // Add a unique identifier
+    };
+    
+    const existingOrders = JSON.parse(localStorage.getItem('foodAppOrders') || '[]');
+    const updatedOrders = [...existingOrders, order];
+    // Add to active orders
+    setActiveOrders(updatedOrders);
+    localStorage.setItem('foodAppOrders', JSON.stringify(updatedOrders));
+  
+    // Reset cart
     setCart([]);
+    localStorage.removeItem('foodAppCart');
     alert("Your order is placed!");
   };
 
@@ -125,17 +170,39 @@ export const StoresPage = () => {
   };
 
   const handlePreOrderSubmit = () => {
+    const preOrder = {
+      items: cart.map(item => ({
+        ...item,
+        storeName: item.storeName // Ensure store name is preserved
+      })),
+      type: "Pre-Order",
+      date: preOrderDetails.date,
+      time: preOrderDetails.time,
+      location: preOrderDetails.location,
+      totalPrice: totalPrice,
+      timestamp: Date.now() // Add a unique identifier
+    };
+    
+    // Get existing orders or create new array
+    const existingOrders = JSON.parse(localStorage.getItem('foodAppOrders') || '[]');
+    const updatedOrders = [...existingOrders, preOrder];
+  
+    // Add to active orders
+    setActiveOrders(updatedOrders);
+    localStorage.setItem('foodAppOrders', JSON.stringify(updatedOrders));
+    
     console.log("Pre-order details:", preOrderDetails);
     closePreOrderPopup();
     alert("Your pre-order is placed!");
+    
+    // Reset cart
     setCart([]);
+    localStorage.removeItem('foodAppCart');
   };
-
-
+  
   const closeStoreMenu = () => {
     setSelectedStore(null);
   };
-
   const totalPrice = cart.reduce((total, item) => total + item.price, 0);
 
   return (
@@ -327,7 +394,7 @@ export const StoresPage = () => {
             )
             )}
             </ul>
-            <h4>Waste Reduction Menu</h4>
+            <h4>Surplus Food Menu (Waste Reduction)</h4>
             <ul style={{ listStyleType: "none", padding: 0 }}>
               {selectedStore.wasteReductionMenu.map(
                 (item: { name: string; price: number; calories: number; protein: number }, index: number) => (
@@ -386,51 +453,58 @@ export const StoresPage = () => {
       )}
        {/* Cart Section */}
        <div
-        style={{
-          position: "fixed",
-          right: "1rem",
-          bottom: "2rem",
-          width: "210px",
-          backgroundColor: "#343A40",
-          borderRadius: "5px",
-          color: "#E5E1DA",
-          fontSize: "0.8rem",
-          padding: "1rem",
-          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.5)",
-        }}
-      >
-        <h3>Your Cart</h3>
-        <ul style={{ listStyle: "none", padding: 0 }}>
-          {cart.map((item, index) => (
-            <li
-              key={index}
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                marginBottom: "0.5rem",
-              }}
-            >
-              <span>
-                {item.name} - RM{item.price.toFixed(2)}
-              </span>
-              <button
-                onClick={() => deleteFromCart(index)}
-                style={{
-                  backgroundColor: "red",
-                  color: "white",
-                  border: "none",
-                  borderRadius: "5px",
-                  padding: "0.2rem 0.5rem",
-                  cursor: "pointer",
-                }}
-              >
-                Delete
-              </button>
-            </li>
-          ))}
-        </ul>
-        <h4>Total: RM{totalPrice.toFixed(2)}</h4>
+    style={{
+      position: "fixed",
+      right: "1rem",
+      bottom: "2rem",
+      width: "210px",
+      backgroundColor: "#343A40",
+      borderRadius: "5px",
+      color: "#E5E1DA",
+      fontSize: "0.8rem",
+      padding: "1rem",
+      boxShadow: "0 4px 6px rgba(0, 0, 0, 0.5)",
+    }}
+  >
+    <h3>Your Cart</h3>
+    <ul style={{ listStyle: "none", padding: 0 }}>
+      {cart.map((item, index) => (
+        <li
+          key={index}
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginBottom: "0.5rem",
+          }}
+        >
+          <span>
+            {item.name} - RM{item.price.toFixed(2)} 
+            <span style={{ 
+              fontSize: "0.7rem", 
+              color: "#aaa", 
+              marginLeft: "0.5rem" 
+            }}>
+              ({item.storeName})
+            </span>
+          </span>
+          <button
+            onClick={() => deleteFromCart(index)}
+            style={{
+              backgroundColor: "red",
+              color: "white",
+              border: "none",
+              borderRadius: "5px",
+              padding: "0.2rem 0.5rem",
+              cursor: "pointer",
+            }}
+          >
+            Delete
+          </button>
+        </li>
+      ))}
+    </ul>
+    <h4>Total: RM{totalPrice.toFixed(2)}</h4>
         <button
           onClick={orderNow}
           style={{

@@ -1,3 +1,15 @@
+.responsive-text {
+  font-size: 18px; /* Default for larger screens */
+
+  @media (max-width: 768px) {
+    font-size: 14px; /* Smaller screens */
+  }
+
+  @media (max-width: 480px) {
+    font-size: 12px; /* Very small screens */
+  }
+}
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;

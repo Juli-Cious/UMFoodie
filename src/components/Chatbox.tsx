@@ -237,7 +237,7 @@ export const Chatbox = () => {
         <div
           style={{
             position: "absolute",
-            bottom: "375px",
+            bottom: "23rem",
             right: "130px",
             minWidth: "200px",
             maxWidth: "250px",
@@ -260,10 +260,11 @@ export const Chatbox = () => {
         <div
           style={{
             position: "absolute",
-            bottom: "375px",
-            right: "130px",
+            bottom: "23rem",
+            right: "1rem",
             minWidth: "200px",
-            maxWidth: "250px",
+            maxWidth: "400px",
+            width: "20rem",
             padding: "10px",
             backgroundColor: "#E6B8B7",
             border: "2px solid black",
@@ -284,7 +285,7 @@ export const Chatbox = () => {
               style={{
                 position: "absolute",
                 bottom: "250px",
-                right: "300px",
+                right: "20rem",
                 transform: "translateY(50%)",
                 // Blue vibrant shadow effect
                 filter: `drop-shadow(-20px 10px 1px rgba(0, 123, 255, 0.5))`, // Vibrant blue shadow
