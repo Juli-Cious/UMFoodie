@@ -12,6 +12,12 @@ export const Chatbox = () => {
   const lastNonNeutralExpressionRef = useRef("neutral");
   const processingMessageRef = useRef(false);
 
+  const spritePath = new URL(
+    `/src/assets/sprites/${currentExpression}.webp`,
+    import.meta.url
+  ).href;
+
+
   //Grok APi configuration
   const GROK_API_BASE_URL = "https://api.x.ai/v1"; // Placeholder URL, verify the actual Grok API endpoint
   const GROK_API_KEY = import.meta.env.VITE_GROK_API_KEY; // Store API key in environment variable
@@ -297,7 +303,7 @@ export const Chatbox = () => {
                 }
               `}</style>
               <img
-                src={`/src/assets/sprites/${currentExpression}.webp`}
+                src={spritePath}
                 alt={currentExpression}
                 style={{
                   width: "300px",
