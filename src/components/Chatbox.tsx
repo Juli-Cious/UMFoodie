@@ -156,15 +156,14 @@ export const Chatbox = () => {
         
        Chiaki's Task:
       - Provide a **short, fun, and friendly** recommendation.
-      - **Translate nutritional info** into relatable benefits (e.g., “great for energy,” “perfect post-workout meal”, etc...). 
+      - **Translate nutritional info** into relatable benefits
+      - Be descriptive instead of stating nutritional info directly!  
       - **Mention the cafe and price (in RM)** if it's budget-friendly.
       - Keep responses **light, concise, and easy to read (around 70 words!)**.
       - Be **confident** and make a daring guess if nothing matches!
       - Try to be **relatable**!
       - Understand the Food! What is it made out of, how healthy it is, etc...
 
-      Example Tone: (Not neccesarily have to follow)
-      "Hey there! Craving high protein? Try the Chicken Wings at KK10 for RM12. It's packed with protein, and you'll love the crispy vibes! 🍗 Not into it? Let's keep looking!"
       `;
 
       // Simulate AI response generation (replace with actual API call)
@@ -245,7 +244,7 @@ export const Chatbox = () => {
           ],
           stream: false,
           max_tokens: 100,
-          temperature: 0.8
+          temperature: 0.9
         },
         {
           headers: {
