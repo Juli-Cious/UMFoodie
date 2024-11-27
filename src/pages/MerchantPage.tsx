@@ -110,16 +110,10 @@ export const MerchantPage = () => {
         </div>
 
         <h3>Menu</h3>
-        <div style={{display: "flex", justifyContent: "space-between", width: "58rem",}}>
-            <p style={{flex: 1}}>Name</p>
-            <p style={{flex: 1}}>Price (RM)</p>
-            <p style={{flex: 1}}>Calories</p>
-            <p style={{flex: 1}}>Protein</p>
-            <p style={{flex: 1}}>Carbs</p>
-        </div>
         
         {menu.map((item, index) => (
           <div key={index} style={{ marginBottom: "1rem" }}>
+            
             <input
               type="text"
               placeholder="Name"

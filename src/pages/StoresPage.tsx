@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useMediaQuery } from "@mui/material";
 import image1 from "../assets/cafe1.webp";
 import image2 from "../assets/cafe2.jpg";
 import image3 from "../assets/chicken_rice.jpg";
@@ -88,7 +89,7 @@ export const StoresPage = () => {
       ],
     },
   ];
-
+  const isMobile = useMediaQuery("(max-width: 768px)");
   const [cart, setCart] = useState<{ name: string; price: number; storeName: string }[]>([]);
   const [selectedStore, setSelectedStore] = useState<any | null>(null);
   const [showPreOrderPopup, setShowPreOrderPopup] = useState(false);
@@ -207,14 +208,14 @@ export const StoresPage = () => {
 
   return (
     <div>
-      <h1 style={{ textAlign: "center" }}>Stores</h1>
+      <h1 style={{ marginTop: "8rem" ,textAlign: "center", fontSize: isMobile ? "2rem":"3rem" }}>Stores</h1>
       <div
         style={{
           display: "flex",
           flexWrap: "wrap",
-          gap: "1rem",
+          gap: isMobile? "1rem" : "1rem",
           justifyContent: "space-evenly",
-          padding: "1rem",
+          padding: isMobile ? "0rem" : "1rem",
         }}
       >
         {stores.map((store) => (
@@ -223,7 +224,7 @@ export const StoresPage = () => {
             style={{
               border: "1px solid #ccc",
               borderRadius: "5px",
-              width: "23%",
+              width: isMobile ? "100%" : "23%",
               padding: "1rem",
               textAlign: "center",
               position: "relative",

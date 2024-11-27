@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
+import { useMediaQuery } from "@mui/material";
 
-export const Header = () => (
+export const Header = () => {
+  const isMobile = useMediaQuery("(max-width: 768px)");
+
+  return(
     <header
       style={{
         position: "fixed",
@@ -13,21 +17,22 @@ export const Header = () => (
       }}
     >
       <nav style={{ height:"120px" ,display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <h1 style={{ marginLeft:"2rem"}}>UM Foodies</h1>
+        <h1 style={{ fontSize: isMobile ? "1.5rem": "3rem" ,marginLeft: isMobile ? "1rem" : "2rem"}}>UM Foodies</h1>
         <div>
-          <Link to="/" style={{ fontSize: "1.5rem",marginRight: "1rem", color: "white" }}>
+          <Link to="/" style={{ fontSize: isMobile ? "1rem":"1.5rem",marginRight: isMobile? "0.5rem" : "1rem", color: "white" }}>
             Home
           </Link>
-          <Link to="/stores" style={{ fontSize: "1.5rem", marginRight: "1rem", color: "white" }}>
+          <Link to="/stores" style={{ fontSize: isMobile ? "1rem":"1.5rem", marginRight: isMobile? "0.5rem" :"1rem", color: "white" }}>
             Stores
           </Link>
-          <Link to="/merchant" style={{ fontSize: "1.5rem", marginRight: "1rem", color: "white"}}>
+          <Link to="/merchant" style={{ fontSize: isMobile ? "1rem":"1.5rem", marginRight: isMobile? "0.5rem" :"1rem", color: "white"}}>
             Merchant
           </Link>
-          <Link to="/delivery" style={{ fontSize: "1.5rem", marginRight: "5rem", color: "white"}}>
+          <Link to="/delivery" style={{ fontSize: isMobile ? "1rem":"1.5rem", marginRight: isMobile? "0.5rem" :"5rem", color: "white"}}>
             Delivery
           </Link>
         </div>
       </nav>
     </header>
-  );
+  ) 
+};

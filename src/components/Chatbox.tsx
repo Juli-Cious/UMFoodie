@@ -1,7 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import { useMediaQuery } from "@mui/material";
 
 export const Chatbox = () => {
+  const isMobile = useMediaQuery("(max-width: 768px)");
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<{ sender: string; text: string }[]>([]);
   const [currentExpression, setCurrentExpression] = useState("neutral");
@@ -11,6 +13,7 @@ export const Chatbox = () => {
   const speechBubbleTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const lastNonNeutralExpressionRef = useRef("neutral");
   const processingMessageRef = useRef(false);
+  const initialSpeechBubbleShownRef = useRef(false);
 
   const spritePath = new URL(
     `/src/assets/sprites/${currentExpression}.webp`,
@@ -194,7 +197,7 @@ export const Chatbox = () => {
             { role: "user", content: input }
           ],
           stream: false,
-          max_tokens: 100,
+          max_tokens: 50,
           temperature: 0.7
         },
         {
@@ -224,53 +227,50 @@ export const Chatbox = () => {
     <div
       style={{
         position: "fixed",
-        bottom: "4rem",
+        bottom: isMobile ? "2rem" : "4rem",
         right: "1rem",
         zIndex: 900,
-        width: "275px",
+        width: isMobile ? "95%" : "275px",
         fontFamily: "Arial, sans-serif",
         fontSize: "0.75rem",
       }}
-    >
-      {/* Initial Speech Bubble */}
-      {showInitialSpeechBubble && ( 
-        <div
-          style={{
-            position: "absolute",
-            bottom: "23rem",
-            right: "130px",
-            minWidth: "200px",
-            maxWidth: "250px",
-            padding: "10px",
-            backgroundColor: "#E5E1DA",
-            color: "black",
-            borderRadius: "15px",
-            fontSize: "15px",
-            boxShadow: "0 4px 6px rgba(0,0,0,0.3)",
-            textAlign: "center",
-            zIndex: 900,
-          }}
-        >
-          {"Hi! I'm Chiaki, your AI-powered food advisor. Tell me, what kind of cuisine are you craving today?"}
-        </div>
+    > {/* Initial Speech Bubble */}
+    {showInitialSpeechBubble && ( 
+      <div
+        style={{
+          position: "absolute",
+          bottom: isMobile ? "15rem" : "23rem",
+          right: isMobile ? "0.5rem" : "9rem",
+          minWidth: isMobile ? "150px" : "200px",
+          maxWidth: isMobile ? "60%" : "400px",
+          padding: "10px",
+          backgroundColor: "#E5E1DA",
+          color: "black",
+          borderRadius: "15px",
+          fontSize: "15px",
+          boxShadow: "0 4px 6px rgba(0,0,0,0.3)",
+          textAlign: "center",
+          zIndex: 900,
+        }}
+      >
+        {"Hi! I'm Chiaki, your AI-powered food advisor. Tell me, what kind of cuisine are you craving today?"}
+      </div>
       )}
-
-      {/* AI Response Speech Bubble */}
+      {/* AI Speech Bubble */}
       {aiSpeechBubble && (
         <div
           style={{
             position: "absolute",
-            bottom: "23rem",
-            right: "1rem",
-            minWidth: "200px",
-            maxWidth: "400px",
-            width: "20rem",
+            bottom: isMobile ? "15rem" : "23rem",
+            right: isMobile ? "0.5rem" : "4rem",
+            minWidth: isMobile ? "150px" : "270px",
+            maxWidth: isMobile ? "60%" : "600px",
             padding: "10px",
             backgroundColor: "#E6B8B7",
             border: "2px solid black",
             color: "black",
             borderRadius: "15px",
-            fontSize: "15px",
+            fontSize: isMobile ? "15px" : "15px",
             boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
             textAlign: "center",
             zIndex: 900,
@@ -280,16 +280,16 @@ export const Chatbox = () => {
         </div>
       )}
 
-            {/* Character Sprite */}
-            <div
+      {/* Character Sprite */}
+      <div
               style={{
                 position: "absolute",
-                bottom: "250px",
-                right: "20rem",
+                bottom: isMobile?  "100px" : "250px",
+                right: isMobile ? "50%" : "20rem",
                 transform: "translateY(50%)",
                 // Blue vibrant shadow effect
-                filter: `drop-shadow(-20px 10px 1px rgba(0, 123, 255, 0.5))`, // Vibrant blue shadow
-                //transition: "filter 0.3s ease", // Smooth transition for shadow
+                filter: "drop-shadow(-20px 10px 1px rgba(0, 123, 255, 0.5))", // Vibrant blue shadow
+                // transition: "filter 0.3s ease", // Smooth transition for shadow
                 // animation: "character-glow 2s infinite alternate", // Pulsating glow effect
               }}
               >
@@ -303,18 +303,18 @@ export const Chatbox = () => {
                   }
                 }
               `}</style>
-              <img
-                src={spritePath}
-                alt={currentExpression}
-                style={{
-                  width: "300px",
-                  height: "auto",
-                }}
-              />
-            </div>
+        <img
+          src={spritePath}
+          alt={currentExpression}
+          style={{
+            width: isMobile ? "300px" : "300px",
+            height: "auto",
+          }}
+        />
+      </div>
 
       {/* Floating Messages */}
-      <div style={{ paddingBottom: "180px" }}>
+      <div style={{ paddingBottom: isMobile ? "650px" : "180px" }}>
         {messages.map((msg, index) => (
           <div
             key={index}
@@ -324,11 +324,8 @@ export const Chatbox = () => {
               padding: "0.5rem 1rem",
               borderRadius: "10px",
               margin: "0.5rem 0",
-              maxWidth: "100%",
+              maxWidth: isMobile ? "100%" : "75%",
               textAlign: "left",
-              position: "relative",
-              left: msg.sender === "You" ? "auto" : "auto",
-              right: msg.sender === "You" ? "auto" : "auto",
               float: msg.sender === "You" ? "right" : "right",
               clear: "both",
             }}
@@ -338,13 +335,13 @@ export const Chatbox = () => {
         ))}
       </div>
 
-        {/* Input Field */}
-        <div
+      {/* Input Field */}
+      <div
         style={{
           position: "fixed",
           bottom: "1rem",
           right: "1rem",
-          width: "300px",
+          width: isMobile ? "90%" : "300px",
           display: "flex",
           gap: "0.5rem",
         }}
@@ -355,23 +352,31 @@ export const Chatbox = () => {
           onChange={(e) => setInput(e.target.value)}
           placeholder={isMessageCooldown ? "Wait a moment..." : "Ask for recommendations..."}
           disabled={isMessageCooldown}
+          onClick={() => {
+            // Show initial speech bubble only if it hasn't been shown before
+            if (!initialSpeechBubbleShownRef.current) {
+              setShowInitialSpeechBubble(true);
+              initialSpeechBubbleShownRef.current = true;
+              
+              // Automatically hide the speech bubble after 4 seconds
+              setTimeout(() => {
+                setShowInitialSpeechBubble(false);
+              }, 4000);
+            }
+          }}
           style={{
             flex: 1,
-            padding: "0.5rem",
+            padding: isMobile ? "0.4rem" : "0.5rem",
             border: "1px solid #ced4da",
             borderRadius: "20px",
-            backgroundColor: isMessageCooldown ? "#f8f9fa" : "white",
-            color: "black",
-            cursor: isMessageCooldown ? "not-allowed" : "text",
           }}
         />
         <button
           onClick={sendMessage}
           disabled={isMessageCooldown}
           style={{
-            padding: "0.5rem 1rem",
+            padding: isMobile ? "0.4rem" : "0.5rem 1rem",
             backgroundColor: isMessageCooldown ? "#6c757d" : "#007bff",
-            color: "white",
             border: "none",
             borderRadius: "20px",
             cursor: isMessageCooldown ? "not-allowed" : "pointer",
@@ -383,4 +388,3 @@ export const Chatbox = () => {
     </div>
   );
 };
-
