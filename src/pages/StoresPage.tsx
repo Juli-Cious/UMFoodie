@@ -5,6 +5,7 @@ import image2 from "../assets/cafe2.jpg";
 import image3 from "../assets/chicken_rice.jpg";
 import image4 from "../assets/zuscoffee.jpg";
 import image5 from "../assets/image5.jpg";
+import qbistropng from "../assets/qbistropng.png";
 
 export const StoresPage = () => {
   const stores = [
@@ -15,13 +16,17 @@ export const StoresPage = () => {
       ecoScore: 85,
       isGreenCertified: true,
       menu: [
-        { name: "Burger", price: 8.5, calories: 300, protein: 20, carbs: 10 },
-        { name: "Pasta", price: 12, calories: 500, protein: 15, carbs: 10 },
-        { name: "Salad", price: 7, calories: 150, protein: 5, carbs: 10 },
+        { name: "Roti Canai", price: 1.5, calories: 300, protein: 6, carbs: 40 },
+        { name: "Roti Telur", price: 2.5, calories: 350, protein: 10, carbs: 40 },
+        { name: "Nasi Goreng Blackpepper", price: 7, calories: 450, protein: 15, carbs: 65 },
+        { name: "Nasi Goreng Paprik", price: 7, calories: 500, protein: 18, carbs: 65 },
+        { name: "Nasi Goreng Cina", price: 5, calories: 400, protein: 10, carbs: 65 },
+        { name: "Teh O Limau (Panas)", price: 2.5, calories: 30, protein: 0, carbs: 8 },
+        { name: "Teh O Limau (Ice)", price: 3.0, calories: 50, protein: 0, carbs: 8 },
       ],
       wasteReductionMenu: [
-        { name: "Day-Old Bread", price: 2, calories: 150, protein: 4, carbs: 10 },
-        { name: "Overripe Bananas", price: 1, calories: 90, protein: 1, carbs: 10 },
+        { name: "Nasi Goreng Cina (surplus)", price: 3.50, calories: 400, protein: 10, carbs: 65 },
+        { name: "Nasi Goreng Blackpepper (surplus)", price: 5, calories: 450, protein: 15, carbs: 65 },
       ],
     },
     {
@@ -31,29 +36,40 @@ export const StoresPage = () => {
       ecoScore: 90,
       isGreenCertified: true,
       menu: [
-        { name: "Smoothies", price: 10, calories: 200, protein: 3, carbs: 10 },
-        { name: "Vegan Wraps", price: 11, calories: 250, protein: 7, carbs: 10},
-        { name: "Fruit Bowls", price: 9, calories: 180, protein: 2, carbs: 10 },
+        { name: "Nasi Goreng Ayam", price: 6, calories: 450, protein: 20, carbs: 60 },
+        { name: "Nasi Lemak Rendang Ayam", price: 8, calories: 600, protein: 25, carbs: 65 },
+        { name: "Nasi Lemak Kari Ayam", price: 8, calories: 550, protein: 23, carbs: 60 },
+        { name: "Kopi O (Panas)", price: 2.40, calories: 5, protein: 0, carbs: 1 },
+        { name: "Kopi O (Ice)", price: 2.80, calories: 20, protein: 0, carbs: 1 },
+        { name: "Kopi C (Panas)", price: 2.40, calories: 50, protein: 2, carbs: 12 },
+        { name: "Kopi C (Ice)", price: 2.80, calories: 80, protein: 2, carbs: 12 },
+        { name: "Kopi (Panas)", price: 2.40, calories: 40, protein: 2, carbs: 10 },
+        { name: "Kopi (Ice)", price: 2.80, calories: 70, protein: 2, carbs: 10 }
       ],
       wasteReductionMenu: [
-        { name: "Leftover Salad Mix", price: 4, calories: 80, protein: 2, carbs: 10 },
-        { name: "Bruised Apples", price: 2, calories: 60, protein: 0.5, carbs: 10 },
+        { name: "Nasi Goreng Ayam (surplus)", price: 4, calories: 450, protein: 20, carbs: 60 },
+        { name: "Nasi Lemak Kari Ayam (surplus)", price: 6, calories: 550, protein: 23, carbs: 60 },
       ],
     },
     {
       id: 3,
-      name: "Chicken Rice Shop",
+      name: "Engineering Faculty Cafe",
       image: image3,
       ecoScore: 70,
       isGreenCertified: false,
       menu: [
-        { name: "Ramen", price: 15, calories: 600, protein: 25, carbs: 10 },
-        { name: "Sushi", price: 18, calories: 350, protein: 12, carbs: 10 },
-        { name: "Dumplings", price: 10, calories: 250, protein: 8, carbs: 10 },
+        { name: "Hainanese Steamed Chicken Rice", price: 6, calories: 550, protein: 30, carbs: 60 },
+        { name: "Crispy Roasted Chicken Rice", price: 6, calories: 600, protein: 25, carbs: 60 },
+        { name: "Soy Sauce Chicken Rice", price: 6, calories: 550, protein: 25, carbs: 60 },
+        { name: "Wan Tan Mee with Roasted Chicken", price: 6, calories: 450, protein: 15, carbs: 55 },
+        { name: "Pu Er Tea (Panas)", price: 0.50, calories: 0, protein: 0, carbs: 0 },
+        { name: "Pu Er Tea (Sejuk)", price: 1.00, calories: 5, protein: 0, carbs: 0 },
+        { name: "Da Hong Pao Tea (Panas)", price: 0.50, calories: 0, protein: 0, carbs: 0 },
+        { name: "Da Hong Pao Tea (Sejuk)", price: 1.00, calories: 5, protein: 0, carbs: 0 }
       ],
       wasteReductionMenu: [
-        { name: "Slightly Dry Dumplings", price: 5, calories: 200, protein: 7, carbs: 10 },
-        { name: "Day-Old Sushi", price: 9, calories: 300, protein: 10, carbs: 10 },
+        { name: "Soy Sauce Chicken Rice (surplus)", price: 4, calories: 550, protein: 25, carbs: 60 },
+        { name: "Hainanese Steamed Chicken Rice (surplus)", price: 5, calories: 550, protein: 30, carbs: 60 },
       ],
     },
     {
@@ -63,13 +79,18 @@ export const StoresPage = () => {
       ecoScore: 60,
       isGreenCertified: false,
       menu: [
-        { name: "Chips", price: 5, calories: 150, protein: 2, carbs: 10 },
-        { name: "Cookies", price: 6, calories: 200, protein: 3, carbs: 10 },
-        { name: "Drinks", price: 8, calories: 120, protein: 1, carbs: 10 },
+        { name: "CEO Latte", price: 9.90, calories: 200, protein: 6, carbs: 20 },
+        { name: "Spanish Latte", price: 10.90, calories: 250, protein: 7, carbs: 25 },
+        { name: "Matcha Latte", price: 9.90, calories: 230, protein: 6, carbs: 22 },
+        { name: "ZUS Gula Melaka", price: 10.50, calories: 270, protein: 6, carbs: 30 },
+        { name: "Dirty Latte", price: 12.90, calories: 300, protein: 7, carbs: 28 },
+        { name: "Peachy Strawberry + Mango Bits", price: 12.90, calories: 290, protein: 0, carbs: 40 },
+        { name: "Thunder", price: 9.90, calories: 200, protein: 0, carbs: 30 },
+        { name: "Iced Genmaicha Latte", price: 10.90, calories: 230, protein: 6, carbs: 22 }
       ],
       wasteReductionMenu: [
         { name: "Day-Old Cookies", price: 3, calories: 180, protein: 2, carbs: 10 },
-        { name: "Discounted Chips", price: 2.5, calories: 130, protein: 1, carbs: 10 },
+        { name: "Discounted Chips", price: 2.50, calories: 130, protein: 1, carbs: 10 },
       ],
     },
     {
@@ -79,13 +100,35 @@ export const StoresPage = () => {
       ecoScore: 90,
       isGreenCertified: true,
       menu: [
-        { name: "Chicken Chop", price: 9, calories: 150, protein: 10, carbs: 10 },
-        { name: "Nasi Kukus", price: 7, calories: 200, protein: 3, carbs: 10 },
-        { name: "Mango Smoothie", price: 6, calories: 120, protein: 1, carbs: 10 },
+        { name: "Deep Fried Chicken Chop", price: 6.50, calories: 600, protein: 25, carbs: 50 },
+        { name: "Grilled Chicken Chop", price: 6.50, calories: 550, protein: 28, carbs: 50 },
+        { name: "Country Fried Chicken", price: 6.50, calories: 580, protein: 26, carbs: 50 },
+        { name: "Chicken Creole Pasta", price: 6, calories: 400, protein: 20, carbs: 55 },
+        { name: "Beef Tex Mex Chili Pasta", price: 6, calories: 450, protein: 25, carbs: 50 },
+        { name: "Grilled Chicken Chili Pesto Pasta", price: 7.50, calories: 500, protein: 28, carbs: 55 }
       ],
       wasteReductionMenu: [
-        { name: "Nasi Ayam (leftover)", price: 4, calories: 180, protein: 2, carbs: 10 },
-        { name: "Discounted Chips", price: 2.5, calories: 130, protein: 1, carbs: 10 },
+        { name: "Nasi Ayam Penyet (surplus)", price: 6, calories: 600, protein: 35, carbs: 60 },
+        { name: "Chicken Satay (surplus)", price: 1, calories: 150, protein: 15, carbs: 10 },
+      ],
+    },
+    {
+      id: 6,
+      name: "Q Bistro UM",
+      image: qbistropng,
+      ecoScore: 87,
+      isGreenCertified: true,
+      menu: [
+        { name: "Cheesy Fries", price: 8, calories: 450, protein: 6, carbs: 55 },
+        { name: "Cheesy Wedges", price: 8, calories: 420, protein: 5, carbs: 50 },
+        { name: "Chicken Wings with Fries", price: 12, calories: 600, protein: 25, carbs: 55 },
+        { name: "Beef Bolognese", price: 12, calories: 500, protein: 30, carbs: 60 },
+        { name: "Carbonara", price: 13, calories:550, protein: 28, carbs: 60 },
+        { name: "Cheesy Fried Chicken Burger", price: 14, calories: 650, protein: 35, carbs: 60 }
+      ],
+      wasteReductionMenu: [
+        { name: "Cheesy Fries (surplus)", price: 6, calories: 450, protein: 6, carbs: 55 },
+        { name: "Chicken Wings with Fries (surplus)", price: 10, calories: 600, protein: 25, carbs: 55 },
       ],
     },
   ];
@@ -314,8 +357,8 @@ export const StoresPage = () => {
               textAlign: "center",
             }}
           >
-            <h2>{selectedStore.name}</h2>
-            <h4>Menu</h4>
+            <h2 style={{marginTop: "0", color: "black", fontWeight: "bold",}}>{selectedStore.name}</h2>
+            <h4 style={{marginTop: "0", color: "black", fontWeight: "bold",}}>Menu</h4>
             <ul style={{ listStyleType: "none", padding: 0 }}>
             {selectedStore.menu.map(
             (
@@ -325,7 +368,7 @@ export const StoresPage = () => {
                 <li
                 key={index}
                 style={{
-                    margin: "1rem 0",
+                    margin: "-0.5rem 0",
                     color: "black",
                     position: "relative",
                     display: "flex",
@@ -395,22 +438,52 @@ export const StoresPage = () => {
             )
             )}
             </ul>
-            <h4>Surplus Food Menu (Waste Reduction)</h4>
+            <h4 style={{marginTop: "0", color: "black", fontWeight: "bold",}}>Surplus Food Menu (Waste Reduction)</h4>
             <ul style={{ listStyleType: "none", padding: 0 }}>
               {selectedStore.wasteReductionMenu.map(
-                (item: { name: string; price: number; calories: number; protein: number }, index: number) => (
+                (item: { name: string; price: number; calories: number; protein: number; carbs: number }, index: number) => (
                   <li
                     key={index}
                     style={{
-                      margin: "1rem 0",
+                      margin: "-0.5rem 0",
+                      color: "black",
+                      position: "relative",
                       display: "flex",
                       justifyContent: "space-between",
                       alignItems: "center",
-                    }}
+                      padding: "0.5rem",
+                      borderRadius: "5px",
+                      transition: "background-color 0.3s",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = "#89A8B2";
+                  }}
+                  onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = "transparent";
+                  }}
                   >
-                    <span>
-                      {item.name} - {item.calories}kcal, {item.protein}g protein
-                    </span>
+                  <div style={{ flex: 1 }}>
+                    <span>{item.name}</span>
+                    <div
+                    style={{
+                        display: "none",
+                        position: "absolute",
+                        bottom: "100%",
+                        left: "0",
+                        backgroundColor: "#89A8B2",
+                        borderRadius: "5px",
+                        padding: "0.5rem",
+                        fontSize: "0.8rem",
+                        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                        width: "max-content",
+                    }}
+                    className="nutrition-info"
+                    >
+                    <p style={{ margin: 0 }}>Calories: {item.calories} kcal</p>
+                    <p style={{ margin: 0 }}>Protein: {item.protein} g</p>
+                    <p style={{ margin: 0 }}>Carbs: {item.carbs} g</p>
+                    </div>
+                </div>
                     <button
                       onClick={() => addToCart(item)}
                       style={{
@@ -421,12 +494,20 @@ export const StoresPage = () => {
                         padding: "0.5rem",
                         fontSize: "0.9rem",
                       }}
-                      onMouseEnter={(e) =>
-                        (e.currentTarget.innerText = "Add to Cart")
-                      }
-                      onMouseLeave={(e) =>
-                        (e.currentTarget.innerText = `RM${item.price}`)
-                      }
+                      onMouseEnter={(e) =>{
+                        (e.currentTarget.innerText = "Add to Cart");
+                        const infoDiv = e.currentTarget.previousElementSibling?.querySelector(
+                          ".nutrition-info"
+                      ) as HTMLElement;
+                      if (infoDiv) infoDiv.style.display = "block";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.innerText = `RM${item.price}`;
+                        const infoDiv = e.currentTarget.previousElementSibling?.querySelector(
+                            ".nutrition-info"
+                        ) as HTMLElement;
+                        if (infoDiv) infoDiv.style.display = "none";
+                      }}
                     >
                       RM{item.price}
                     </button>

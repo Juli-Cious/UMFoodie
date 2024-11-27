@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useMediaQuery } from "@mui/material";
+import storedatabase from '../assets/storedatabase.json';
 
 export const Chatbox = () => {
   const isMobile = useMediaQuery("(max-width: 768px)");
@@ -25,12 +26,20 @@ export const Chatbox = () => {
   const GROK_API_BASE_URL = "https://api.x.ai/v1"; // Placeholder URL, verify the actual Grok API endpoint
   const GROK_API_KEY = import.meta.env.VITE_GROK_API_KEY; // Store API key in environment variable
   
-  // Available store foods (you can expand this list)
   const availableFoods = [
     "Pizza", "Sushi", "Burger", "Salad", "Pasta", 
     "Chicken Wings", "Vegetarian Bowl", "Ramen", 
     "Breakfast Platter", "Smoothie"
   ];
+
+  // Extract cafe and menu information
+  const cafes = storedatabase.cafes;
+  const allMenuItems = cafes.flatMap(cafe => 
+    cafe.menu_items.map(item => ({
+      cafeName: cafe.name,
+      ...item
+    }))
+  );
   
   // List of expressions for the character
   const expressions = ["happy", "super happy", "neutral", "smug", "excited"];
@@ -111,18 +120,55 @@ export const Chatbox = () => {
     setMessages((prev) => [...prev, { sender: "You", text: input }]);
 
     try {
-      // Prepare the context with available store foods and user requirements
-      const context = `
+      // (old) Prepare the context with available store foods and user requirements
+
+      // const context = `
+      //   You are a friendly food recommendation assistant named Chiaki.
+      //   Available Cafes:
+      //   ${cafes.map(cafe => `
+      //     ${cafe.name} (Eco Score: ${cafe.eco_score}, Green Certified: ${cafe.green_certified})
+      //   `).join('\n')}
+      //   User's dietary preferences/requirements: ${input}
+        
+      //   Provide a concise, personalized food recommendation based on the available foods.
+      //   Make it conversational and fun, matching the style of a playful AI assistant.
+      // `;
+
+      //(new) New context with database integration
+      const enhancedContext = `
         You are a friendly food recommendation assistant named Chiaki.
-        Available store foods: ${availableFoods.join(", ")}
+        Available Cafes:
+        ${cafes.map(cafe => `
+          ${cafe.name} (Eco Score: ${cafe.eco_score}, Green Certified: ${cafe.green_certified})
+        `).join('\n')}
+
+        Menu Overview:
+        ${allMenuItems.map(item => `
+          - ${item.cafeName}: ${item.name} 
+            Price: $${item.price} 
+            Nutrition: 
+              Calories: ${item.nutrition.calories}
+              Protein: ${item.nutrition.protein}g
+              Carbs: ${item.nutrition.carbs}g
+        `).join('\n')}
+
         User's dietary preferences/requirements: ${input}
         
-        Provide a concise, personalized food recommendation based on the available foods.
-        Make it conversational and fun, matching the style of a playful AI assistant.
+       Chiaki's Task:
+      - Provide a **short, fun, and friendly** recommendation.
+      - **Translate nutritional info** into relatable benefits (e.g., “great for energy,” “perfect post-workout meal”, etc...). 
+      - **Mention the cafe and price (in RM)** if it's budget-friendly.
+      - Keep responses **light, concise, and easy to read (around 70 words!)**.
+      - Be **confident** and make a daring guess if nothing matches!
+      - Try to be **relatable**!
+      - Understand the Food! What is it made out of, how healthy it is, etc...
+
+      Example Tone: (Not neccesarily have to follow)
+      "Hey there! Craving high protein? Try the Chicken Wings at KK10 for RM12. It's packed with protein, and you'll love the crispy vibes! 🍗 Not into it? Let's keep looking!"
       `;
 
       // Simulate AI response generation (replace with actual API call)
-      const aiResponse = await generateAIResponse(context);
+      const aiResponse = await generateAIResponse(enhancedContext);
       
       // If there's already an active speech bubble or message is being processed, 
       // add to pending messages
@@ -178,6 +224,7 @@ export const Chatbox = () => {
   // Simulated AI response generation (replace with actual API call)
   const generateAIResponse = async (context: string): Promise<string> => {
     try {
+      
       // Ensure API key exists
       if (!GROK_API_KEY) {
         throw new Error("Grok API key is not configured");
@@ -197,8 +244,8 @@ export const Chatbox = () => {
             { role: "user", content: input }
           ],
           stream: false,
-          max_tokens: 50,
-          temperature: 0.7
+          max_tokens: 100,
+          temperature: 0.8
         },
         {
           headers: {
@@ -270,7 +317,7 @@ export const Chatbox = () => {
             border: "2px solid black",
             color: "black",
             borderRadius: "15px",
-            fontSize: isMobile ? "15px" : "15px",
+            fontSize: isMobile ? "14px" : "14px",
             boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
             textAlign: "center",
             zIndex: 900,
