@@ -163,6 +163,7 @@ export const Chatbox = () => {
       - Be **confident** and make a daring guess if nothing matches!
       - Try to be **relatable**!
       - Understand the Food! What is it made out of, how healthy it is, etc...
+      - Don't be too strict on the eco-Scores and environmental-friendiless, take them into account only when necessary
 
       `;
 

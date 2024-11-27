@@ -55,7 +55,7 @@ export const StoresPage = () => {
       id: 3,
       name: "Engineering Faculty Cafe",
       image: image3,
-      ecoScore: 70,
+      ecoScore: 80,
       isGreenCertified: false,
       menu: [
         { name: "Hainanese Steamed Chicken Rice", price: 6, calories: 550, protein: 30, carbs: 60 },
@@ -76,7 +76,7 @@ export const StoresPage = () => {
       id: 4,
       name: "Zus Coffee",
       image: image4,
-      ecoScore: 60,
+      ecoScore: 80,
       isGreenCertified: false,
       menu: [
         { name: "CEO Latte", price: 9.90, calories: 200, protein: 6, carbs: 20 },
