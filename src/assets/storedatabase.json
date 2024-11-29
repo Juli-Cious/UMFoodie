@@ -203,7 +203,7 @@
     {
       "id": 3,
       "name": "Engineering Faculty Cafe",
-      "eco_score": 70,
+      "eco_score": 80,
       "green_certified": false,
       "menu_items": [
         {
@@ -303,7 +303,7 @@
     {
       "id": 4,
       "name": "Zus Coffee",
-      "eco_score": 60,
+      "eco_score": 80,
       "green_certified": false,
       "menu_items": [
         {
