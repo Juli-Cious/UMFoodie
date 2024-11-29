@@ -27,9 +27,9 @@ export const Chatbox = () => {
   const GROK_API_KEY = import.meta.env.VITE_GROK_API_KEY; // Store API key in environment variable
   
   const availableFoods = [
-    "Pizza", "Sushi", "Burger", "Salad", "Pasta", 
-    "Chicken Wings", "Vegetarian Bowl", "Ramen", 
-    "Breakfast Platter", "Smoothie"
+    "Roti Canai", "Roti Telur", "Nasi Goreng Blackpepper", "Nasi Goreng Paprik", "Nasi Goreng Cina", 
+    "Nasi Goreng Ayam", "Nasi Lemak Rendang Ayam", "Nasi Lemak Kari Ayam", 
+    "Chessy Fries", "Deep Fried Chicken Chop", "Grilled Chicken Chop", "Grilled Fish Fillet",
   ];
 
   // Extract cafe and menu information
