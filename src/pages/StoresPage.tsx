@@ -8,6 +8,8 @@ import image5 from "../assets/image5.jpg";
 import qbistropng from "../assets/qbistropng.png";
 
 export const StoresPage = () => {
+  const TELEGRAM_CHAT_ID = import.meta.env.VITE_TELEGRAM_CHAT_ID;
+  const TELEGRAM_BOT_TOKEN = import.meta.env.VITE_TELEGRAM_BOT_TOKEN;
   const stores = [
     {
       id: 1,
@@ -179,7 +181,7 @@ export const StoresPage = () => {
   };
 
   // Modify orderNow to manage localStorage
-  const orderNow = () => {
+  const orderNow = async () => {
     const order = {
       items: cart.map(item => ({
         ...item,
@@ -202,6 +204,36 @@ export const StoresPage = () => {
     setCart([]);
     localStorage.removeItem('foodAppCart');
     alert("Your order is placed!");
+
+    // Prepare Telegram message
+  const telegramMessage = `
+  📦 **New Order Placed!**
+  📋 **Items:**
+  ${order.items.map(item => `- ${item.name} (${item.storeName}) - RM${item.price.toFixed(2)}`).join("\n")}
+  📍 **Location:** ${order.location}
+  ⏰ **Time:** ${order.time}
+  💵 **Total Price:** RM${order.totalPrice.toFixed(2)}
+  🕒 **Timestamp:** ${new Date(order.timestamp).toLocaleString()}
+    `;
+  
+    try {
+      // Send order details to Telegram bot
+      await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          chat_id: TELEGRAM_CHAT_ID, // Replace with your chat ID or group ID
+          text: telegramMessage,
+          parse_mode: "Markdown",
+        }),
+      });
+      console.log("Order sent to Telegram!");
+    } catch (error) {
+      console.error("Failed to send order to Telegram:", error);
+      alert("Failed to notify Telegram.");
+    }
   };
 
   const preOrder = () => {
@@ -213,7 +245,7 @@ export const StoresPage = () => {
     setPreOrderDetails({ date: "", time: "", location: "" });
   };
 
-  const handlePreOrderSubmit = () => {
+  const handlePreOrderSubmit = async () => {
     const preOrder = {
       items: cart.map(item => ({
         ...item,
@@ -242,6 +274,35 @@ export const StoresPage = () => {
     // Reset cart
     setCart([]);
     localStorage.removeItem('foodAppCart');
+    const telegramMessage = `
+  📦 **New Pre-Order Placed!**
+  📋 **Items:**
+  ${preOrder.items.map(item => `- ${item.name} (${item.storeName}) - RM${item.price.toFixed(2)}`).join("\n")}
+  📍 **Location:** ${preOrder.location}
+  📅 **Date:** ${preOrder.date}
+  ⏰ **Time:** ${preOrder.time}
+  💵 **Total Price:** RM${preOrder.totalPrice.toFixed(2)}
+  🕒 **Timestamp:** ${new Date(preOrder.timestamp).toLocaleString()}
+    `;
+
+    try {
+      // Send pre-order details to Telegram bot
+      await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          chat_id: TELEGRAM_CHAT_ID, // Replace with your chat ID
+          text: telegramMessage,
+          parse_mode: "Markdown",
+        }),
+      });
+      console.log("Pre-order sent to Telegram!");
+    } catch (error) {
+      console.error("Failed to send pre-order to Telegram:", error);
+      alert("Failed to notify Telegram.");
+    }
   };
   
   const closeStoreMenu = () => {
