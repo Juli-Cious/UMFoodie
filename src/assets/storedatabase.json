@@ -264,7 +264,7 @@
           "name": "Da Hong Pao Tea (Panas)",
           "price": 0.50,
           "nutrition": {
-            "calories": 0,
+            "calories": 5,
             "protein": 0,
             "carbs": 0
           }

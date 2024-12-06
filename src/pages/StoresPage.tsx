@@ -64,7 +64,7 @@ export const StoresPage = () => {
         { name: "Crispy Roasted Chicken Rice", price: 6, calories: 600, protein: 25, carbs: 60 },
         { name: "Soy Sauce Chicken Rice", price: 6, calories: 550, protein: 25, carbs: 60 },
         { name: "Wan Tan Mee with Roasted Chicken", price: 6, calories: 450, protein: 15, carbs: 55 },
-        { name: "Pu Er Tea (Panas)", price: 0.50, calories: 0, protein: 0, carbs: 0 },
+        { name: "Pu Er Tea (Panas)", price: 0.50, calories: 5, protein: 0, carbs: 0 },
         { name: "Pu Er Tea (Sejuk)", price: 1.00, calories: 5, protein: 0, carbs: 0 },
         { name: "Da Hong Pao Tea (Panas)", price: 0.50, calories: 0, protein: 0, carbs: 0 },
         { name: "Da Hong Pao Tea (Sejuk)", price: 1.00, calories: 5, protein: 0, carbs: 0 }
@@ -456,9 +456,17 @@ export const StoresPage = () => {
                 }}
                 onMouseEnter={(e) => {
                     e.currentTarget.style.backgroundColor = "#89A8B2";
+                    const infoDiv = e.currentTarget.querySelector(
+                      ".nutrition-info"
+                  ) as HTMLElement;
+                  if (infoDiv) infoDiv.style.display = "block";
                 }}
                 onMouseLeave={(e) => {
                     e.currentTarget.style.backgroundColor = "transparent";
+                    const infoDiv = e.currentTarget.querySelector(
+                      ".nutrition-info"
+                  ) as HTMLElement;
+                  if (infoDiv) infoDiv.style.display = "none";
                 }}
                 >
                 <div style={{ flex: 1 }}>
@@ -533,9 +541,17 @@ export const StoresPage = () => {
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.backgroundColor = "#89A8B2";
+                    const infoDiv = e.currentTarget?.querySelector(
+                      ".nutrition-info"
+                  ) as HTMLElement;
+                  if (infoDiv) infoDiv.style.display = "block";
                   }}
                   onMouseLeave={(e) => {
                       e.currentTarget.style.backgroundColor = "transparent";
+                      const infoDiv = e.currentTarget?.querySelector(
+                        ".nutrition-info"
+                    ) as HTMLElement;
+                    if (infoDiv) infoDiv.style.display = "none";
                   }}
                   >
                   <div style={{ flex: 1 }}>
