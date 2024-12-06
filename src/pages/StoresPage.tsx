@@ -139,12 +139,19 @@ export const StoresPage = () => {
   const [selectedStore, setSelectedStore] = useState<any | null>(null);
   const [showPreOrderPopup, setShowPreOrderPopup] = useState(false);
   const [preOrderDetails, setPreOrderDetails] = useState({
+    userName: "",
     date: "",
     time: "",
     location: "",
   });
   const [, setActiveOrders] = useState<any[]>([]);
+  const [userName, setUserName] = useState("");
+  const [showNamePopup, setShowNamePopup] = useState(false);
+  const [isCartVisible, setIsCartVisible] = useState(false);
 
+  const toggleCartVisibility = () => {
+    setIsCartVisible((prev) => !prev);
+  }
   useEffect(() => {
     // Load cart from localStorage
     const savedCart = localStorage.getItem('foodAppCart');
@@ -180,8 +187,11 @@ export const StoresPage = () => {
     localStorage.setItem('foodAppCart', JSON.stringify(updatedCart));
   };
 
-  // Modify orderNow to manage localStorage
   const orderNow = async () => {
+    setShowNamePopup(true);
+  };
+  // Modify orderNow to manage localStorage
+  const handleOrderSubmit = async () => {
     const order = {
       items: cart.map(item => ({
         ...item,
@@ -191,6 +201,7 @@ export const StoresPage = () => {
       time: new Date().toLocaleTimeString(),
       location: "Current Location",
       totalPrice: totalPrice,
+      userName,
       timestamp: Date.now() // Add a unique identifier
     };
     
@@ -207,7 +218,7 @@ export const StoresPage = () => {
 
     // Prepare Telegram message
   const telegramMessage = `
-  📦 **New Order Placed!**
+  📦 **New Order Placed by *${userName}!***
   📋 **Items:**
   ${order.items.map(item => `- ${item.name} (${item.storeName}) - RM${item.price.toFixed(2)}`).join("\n")}
   📍 **Location:** ${order.location}
@@ -233,6 +244,9 @@ export const StoresPage = () => {
     } catch (error) {
       console.error("Failed to send order to Telegram:", error);
       alert("Failed to notify Telegram.");
+    }finally {
+      setShowNamePopup(false); // Close popup after order is placed
+      setUserName(""); // Reset name input
     }
   };
 
@@ -242,7 +256,7 @@ export const StoresPage = () => {
 
   const closePreOrderPopup = () => {
     setShowPreOrderPopup(false);
-    setPreOrderDetails({ date: "", time: "", location: "" });
+    setPreOrderDetails({userName: "", date: "", time: "", location: "" });
   };
 
   const handlePreOrderSubmit = async () => {
@@ -252,6 +266,7 @@ export const StoresPage = () => {
         storeName: item.storeName // Ensure store name is preserved
       })),
       type: "Pre-Order",
+      userName: preOrderDetails.userName,
       date: preOrderDetails.date,
       time: preOrderDetails.time,
       location: preOrderDetails.location,
@@ -275,7 +290,7 @@ export const StoresPage = () => {
     setCart([]);
     localStorage.removeItem('foodAppCart');
     const telegramMessage = `
-  📦 **New Pre-Order Placed!**
+  📦 **New Pre-Order Placed by *${preOrder.userName}*!**
   📋 **Items:**
   ${preOrder.items.map(item => `- ${item.name} (${item.storeName}) - RM${item.price.toFixed(2)}`).join("\n")}
   📍 **Location:** ${preOrder.location}
@@ -600,16 +615,22 @@ export const StoresPage = () => {
       position: "fixed",
       right: "1rem",
       bottom: "2rem",
-      width: "210px",
+      width: isMobile? "170px":"210px",
       backgroundColor: "#343A40",
       borderRadius: "5px",
       color: "#E5E1DA",
-      fontSize: "0.8rem",
+      fontSize: isMobile ? "0.7rem":"0.8rem",
       padding: "1rem",
       boxShadow: "0 4px 6px rgba(0, 0, 0, 0.5)",
     }}
   >
-    <h3>Your Cart</h3>
+    <h3 onClick={toggleCartVisibility} style={{ cursor: "pointer", display: "flex", alignItems: "center" }}>
+        Your Cart
+        <span style={{ marginLeft: "0.5rem" }}>
+          {isCartVisible ? "▼" : "▲"}
+        </span>
+    </h3>
+    {isCartVisible && (
     <ul style={{ listStyle: "none", padding: 0 }}>
       {cart.map((item, index) => (
         <li
@@ -647,6 +668,7 @@ export const StoresPage = () => {
         </li>
       ))}
     </ul>
+    )}
     <h4>Total: RM{totalPrice.toFixed(2)}</h4>
         <button
           onClick={orderNow}
@@ -663,6 +685,15 @@ export const StoresPage = () => {
         >
           Order Now
         </button>
+        {showNamePopup && ( //asks for user name
+        <div className="name-popup">
+          <label>
+            Enter your name:
+            <input type="text" value={userName} onChange={(e) => setUserName(e.target.value)} />
+          </label>
+          <button style={{marginBottom: "3px"}} onClick={handleOrderSubmit} disabled={!userName.trim()}>Submit</button>
+        </div>
+         )}
         <button
           onClick={preOrder}
           style={{
@@ -708,6 +739,24 @@ export const StoresPage = () => {
                 value={preOrderDetails.date}
                 onChange={(e) =>
                   setPreOrderDetails({ ...preOrderDetails, date: e.target.value })
+                }
+                style={{
+                  width: "100%",
+                  padding: "0.5rem",
+                  marginTop: "0.5rem",
+                  borderRadius: "5px",
+                  border: "1px solid #ced4da",
+                }}
+                required
+              />
+            </div>
+            <div style={{ marginBottom: "1rem" }}>
+              <label>Name:</label>
+              <input
+                type="userName"
+                value={preOrderDetails.userName}
+                onChange={(e) =>
+                  setPreOrderDetails({ ...preOrderDetails, userName: e.target.value })
                 }
                 style={{
                   width: "100%",

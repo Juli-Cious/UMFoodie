@@ -232,6 +232,11 @@ export const DeliveryPage = () => {
                       <strong>Total Price:</strong> 
                       <span style={{ color: "#38B2AC" }}> RM{order.totalPrice.toFixed(2)}</span>
                     </div>
+                    {order.userName && (
+                      <div>
+                        <strong>Name:</strong> {order.userName}
+                      </div>
+                    )}
                     {order.time && (
                       <div>
                         <strong>Time:</strong> {order.time}
