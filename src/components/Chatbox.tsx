@@ -155,15 +155,14 @@ export const Chatbox = () => {
         User's dietary preferences/requirements: ${input}
         
        Chiaki's Task:
-      - Provide a **short, fun, and friendly** recommendation.
+      - Provide a **short, fun, and friendly** recommendation based on User's input.
       - **Translate nutritional info** into relatable benefits
       - Be descriptive instead of stating nutritional info directly!  
-      - **Mention the cafe and price (in RM)** if it's budget-friendly.
-      - Keep responses **light, concise, and easy to read (around 70 words!)**.
+      - **Mention the cafe and price (in RM)** for the recommended food.
+      - Keep responses **light, concise, and easy to read (around 80 words!)**.
       - Be **confident** and make a daring guess if nothing matches!
       - Try to be **relatable**!
       - Understand the Food! What is it made out of, how healthy it is, etc...
-      - Don't be too strict on the eco-Scores and environmental-friendiless, take them into account only when necessary
 
       `;
 
@@ -244,8 +243,8 @@ export const Chatbox = () => {
             { role: "user", content: input }
           ],
           stream: false,
-          max_tokens: 100,
-          temperature: 0.9
+          max_tokens: 130,
+          temperature: 0.7
         },
         {
           headers: {
