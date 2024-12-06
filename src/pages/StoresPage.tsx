@@ -613,6 +613,8 @@ export const StoresPage = () => {
        <div
     style={{
       position: "fixed",
+      display: "flex",
+      flexDirection: "column",
       right: "1rem",
       bottom: "2rem",
       width: isMobile? "170px":"210px",
@@ -620,7 +622,7 @@ export const StoresPage = () => {
       borderRadius: "5px",
       color: "#E5E1DA",
       fontSize: isMobile ? "0.7rem":"0.8rem",
-      padding: "1rem",
+      padding: isMobile? "0.7rem":"1rem",
       boxShadow: "0 4px 6px rgba(0, 0, 0, 0.5)",
     }}
   >
@@ -717,6 +719,7 @@ export const StoresPage = () => {
             position: "fixed",
             top: "50%",
             left: "50%",
+            width: isMobile ? "75%" : "25%" ,
             transform: "translate(-50%, -50%)",
             backgroundColor: "#89A8B2",
             padding: "2rem",
